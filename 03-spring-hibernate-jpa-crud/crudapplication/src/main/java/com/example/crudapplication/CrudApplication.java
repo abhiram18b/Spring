@@ -25,7 +25,10 @@ public class CrudApplication {
 //			readStudent(studentDAO);
 //			getAllStudents(studentDAO);
 //			getAllStudentsSortedByLastName(studentDAO);
-			getStudentsByLastName(studentDAO);
+//			getStudentsByLastName(studentDAO);
+//			updateStudent(studentDAO);
+//			deleteStudent(studentDAO);
+			deleteAllStudents(studentDAO);
 		};
 	}
 
@@ -99,6 +102,38 @@ public class CrudApplication {
 			System.out.println(s);
 		}
 
+	}
+
+	public void updateStudent(StudentDAO studentDAO){
+		int id = 1;
+
+		System.out.println("Getting Student with Id : "+id);
+		Student myStudent = studentDAO.findById(1);
+
+		System.out.println("Updating Student with Id : "+id);
+//		myStudent.setFirstName("Scooby");
+		myStudent.setFirstName("Steve");
+
+		studentDAO.update(myStudent);
+		System.out.println("Updating Student with Id : "+id);
+
+		System.out.println(myStudent);
+	}
+
+	public void deleteStudent(StudentDAO studentDAO){
+		int id = 3;
+		System.out.println("Deleting Student with Id : "+id+" ...");
+		studentDAO.delete(id);
+		System.out.println("Deleted Student");
+
+	}
+
+	public void deleteAllStudents(StudentDAO studentDAO){
+		System.out.println("Deleting All Students........");
+
+		int totalDeletedRows = studentDAO.deleteAll();
+
+		System.out.println("Deleted row count:"+totalDeletedRows);
 	}
 
 }

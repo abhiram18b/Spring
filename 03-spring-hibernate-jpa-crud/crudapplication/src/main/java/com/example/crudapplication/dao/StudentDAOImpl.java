@@ -2,6 +2,7 @@ package com.example.crudapplication.dao;
 
 import com.example.crudapplication.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,5 +48,25 @@ public class StudentDAOImpl implements StudentDAO{
         TypedQuery<Student> myQuery = entityManager.createQuery("FROM Student WHERE lastName = :theData",Student.class);
         myQuery.setParameter("theData",lastName);
         return myQuery.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
+    }
+
+    @Override
+    @Transactional
+    public void delete(int id){
+        Student student = entityManager.find(Student.class,id);
+        entityManager.remove(student);
+    }
+
+    @Override
+    @Transactional
+    public int deleteAll(){
+        int modifiedRows = entityManager.createQuery("DELETE FROM Student").executeUpdate();
+        return modifiedRows;
     }
 }
