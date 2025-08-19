@@ -1,0 +1,26 @@
+package com.example.springmvc.thymeleafdemo.controller;
+
+import com.example.springmvc.thymeleafdemo.model.Student;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class StudentFormController {
+
+    @RequestMapping("/showStudentForm")
+    public String showStudentForm(Model theModel){
+        Student theStudent = new Student();
+        theModel.addAttribute("student",theStudent);
+        return "student-form";
+    }
+
+    @PostMapping("/processStudentForm")
+    public String processStudentForm(@ModelAttribute("student")Student theStudent){
+
+        System.out.println("theStudent = "+theStudent.getFirstName()+" "+theStudent.getLastName());
+        return "student-confirmation";
+    }
+}
