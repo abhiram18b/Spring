@@ -13,10 +13,14 @@ import java.util.List;
 @Controller
 public class StudentFormController {
 
+    @Value("${countries}")
+    private List<String> countries;
+
     @RequestMapping("/showStudentForm")
     public String showStudentForm(Model theModel){
         Student theStudent = new Student();
         theModel.addAttribute("student",theStudent);
+        theModel.addAttribute("countries",countries);
         return "student-form";
     }
 
