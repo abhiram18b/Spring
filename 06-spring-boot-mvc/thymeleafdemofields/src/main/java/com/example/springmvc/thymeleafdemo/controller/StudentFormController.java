@@ -32,6 +32,7 @@ public class StudentFormController {
     public String processStudentForm(@ModelAttribute("student")Student theStudent){
 
         System.out.println("theStudent = "+theStudent.getFirstName()+" "+theStudent.getLastName());
+        System.out.println(theStudent.getFavouriteSystems());
         return "student-confirmation";
     }
 }
