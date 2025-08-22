@@ -5,10 +5,8 @@ import com.example.springboot.mvccrud.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -40,6 +38,19 @@ public class EmployeeController {
     @PostMapping("/save")
     public String save(@ModelAttribute("employee") Employee employee){
         Employee newEmployee = employeeService.save(employee);
+        return "redirect:/employees/list";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("employeeId") int employeeId,Model thModel){
+        Employee employeeInDB = employeeService.findById(employeeId);
+        thModel.addAttribute("employee",employeeInDB);
+        return "employees/employee-form";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("employeeId") int employeeId){
+        employeeService.deleteById(employeeId);
         return "redirect:/employees/list";
     }
 }
