@@ -1,6 +1,12 @@
 package com.example.springboot.mvc.validationdemo;
 
-import jakarta.validation.constraints.*;
+import com.example.springboot.mvc.validationdemo.validator.CourseCode;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+
 
 public class Customer {
     private String firstName;
@@ -16,6 +22,9 @@ public class Customer {
 
     @Pattern(regexp = "^[a-zA-Z0-9]{5}" , message="only 5 character/digits")
     private String postalCode;
+
+    @CourseCode(value="abc",message = "must start with abc")
+    private String courseCode;
 
     public String getFirstName() {
         return firstName;
@@ -47,5 +56,14 @@ public class Customer {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 }
